@@ -15,14 +15,14 @@ A custom Next.js e-commerce starter for professional nail technicians, designed 
 
 1. Install Node.js 20+ and npm.
 2. Install dependencies with `npm install`.
-3. Create `.env` with:
+3. Optional: create `.env` with:
 
 ```env
 DATABASE_URL="postgresql://user:password@localhost:5432/nail_supply"
 STRIPE_SECRET_KEY="sk_test_..."
 ```
 
-4. Generate the Prisma client:
+4. Optional: generate the Prisma client if you are wiring a real database:
 
 ```bash
 npx prisma generate
@@ -33,6 +33,12 @@ npx prisma generate
 ```bash
 npm run dev
 ```
+
+## Fastest test deploy
+
+- You can deploy this app to Vercel without any environment variables.
+- The storefront, cart, checkout form, admin pages, and mock order flow all work from local mock data.
+- In no-key mode, checkout creates a mock order summary instead of a real Stripe payment.
 
 ## Notes
 

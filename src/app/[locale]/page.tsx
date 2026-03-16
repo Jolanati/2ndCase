@@ -19,7 +19,7 @@ export default async function HomePage({
       <section>
         <div className="section-header">
           <div>
-            <p className="eyebrow">{locale === "en" ? "Technician favorites" : "Meistaru favorīti"}</p>
+            <p className="eyebrow">{locale === "en" ? "Technician favorites" : "Meistaru favoriti"}</p>
             <h2>{locale === "en" ? "Curated for fast salon work" : "Atlasits atram salona darbam"}</h2>
           </div>
         </div>

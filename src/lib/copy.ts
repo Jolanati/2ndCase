@@ -1,9 +1,6 @@
 import { Locale } from "./types";
 
-export const uiCopy: Record<
-  Locale,
-  Record<string, string>
-> = {
+export const uiCopy: Record<Locale, Record<string, string>> = {
   en: {
     catalog: "Catalog",
     featured: "Featured Picks",
@@ -42,7 +39,7 @@ export const uiCopy: Record<
     sort: "Kartot",
     allProducts: "Visi produkti",
     category: "Kategorija",
-    relatedProducts: "Ieteicams kopā ar šo produktu",
+    relatedProducts: "Ieteicams kopa ar so produktu",
     inStock: "Ir noliktava",
     lowStock: "Maz atlikuma",
     outOfStock: "Nav noliktava",
