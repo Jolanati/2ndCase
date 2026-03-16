@@ -1,0 +1,169 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Locale {
+  en
+  lv
+}
+
+enum OrderStatus {
+  pending
+  paid
+  processing
+  shipped
+  delivered
+  cancelled
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  nameEn      String
+  nameLv      String
+  descriptionEn String?
+  descriptionLv String?
+  image       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+}
+
+model Product {
+  id              String           @id @default(cuid())
+  slug            String           @unique
+  categoryId      String
+  nameEn          String
+  nameLv          String
+  subtitleEn      String?
+  subtitleLv      String?
+  descriptionEn   String
+  descriptionLv   String
+  ingredientsEn   String?
+  ingredientsLv   String?
+  usageEn         String?
+  usageLv         String?
+  compatibilityEn String?
+  compatibilityLv String?
+  curingInfoEn    String?
+  curingInfoLv    String?
+  isFeatured      Boolean          @default(false)
+  isPublished     Boolean          @default(true)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  category        Category         @relation(fields: [categoryId], references: [id])
+  variants        ProductVariant[]
+}
+
+model ProductVariant {
+  id              String   @id @default(cuid())
+  productId       String
+  sku             String   @unique
+  nameEn          String
+  nameLv          String
+  shade           String?
+  grit            String?
+  size            String?
+  packSize        String?
+  priceCents      Int
+  vatRate         Decimal  @default(21)
+  inventory       Int      @default(0)
+  weightGrams     Int?
+  image           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  product         Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Customer {
+  id         String    @id @default(cuid())
+  email      String
+  fullName   String
+  phone      String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  orders     Order[]
+}
+
+model Address {
+  id          String    @id @default(cuid())
+  orderId      String    @unique
+  fullName     String
+  phone        String?
+  line1        String
+  line2        String?
+  city         String
+  postalCode   String
+  countryCode  String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  order        Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model ShippingZone {
+  id               String   @id @default(cuid())
+  code             String   @unique
+  nameEn           String
+  nameLv           String
+  countries        String[]
+  rateCents        Int
+  freeAboveCents   Int?
+  etaEn            String
+  etaLv            String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Order {
+  id                    String       @id @default(cuid())
+  orderNumber           String       @unique
+  customerId            String?
+  email                 String
+  currency              String
+  locale                Locale
+  status                OrderStatus  @default(pending)
+  subtotalCents         Int
+  shippingCents         Int
+  vatCents              Int
+  totalCents            Int
+  stripePaymentIntentId String?
+  shippingZoneCode      String
+  notes                 String?
+  createdAt             DateTime     @default(now())
+  updatedAt             DateTime     @updatedAt
+  customer              Customer?    @relation(fields: [customerId], references: [id])
+  address               Address?
+  items                 OrderItem[]
+}
+
+model OrderItem {
+  id               String   @id @default(cuid())
+  orderId          String
+  productId        String
+  variantId        String
+  productNameEn    String
+  productNameLv    String
+  variantNameEn    String
+  variantNameLv    String
+  sku              String
+  quantity         Int
+  unitPriceCents   Int
+  vatRate          Decimal
+  order            Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model ContentBlock {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  titleEn     String
+  titleLv     String
+  bodyEn      String
+  bodyLv      String
+  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now())
+}
