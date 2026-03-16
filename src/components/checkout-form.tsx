@@ -3,7 +3,13 @@
 import { useRouter } from "next/navigation";
 import { FormEvent, useMemo, useState } from "react";
 import { formatCurrency } from "@/lib/format";
-import { calculateShipping, calculateSubtotal, calculateVat, enrichCartItems, getShippingZones } from "@/lib/store";
+import {
+  calculateShipping,
+  calculateSubtotal,
+  calculateVat,
+  enrichCartItems,
+  getShippingZones
+} from "@/lib/store";
 import { Locale } from "@/lib/types";
 import { uiCopy } from "@/lib/copy";
 import { useCart } from "./cart-provider";
@@ -101,10 +107,13 @@ export function CheckoutForm({ locale }: { locale: Locale }) {
           </label>
           <label>
             {locale === "en" ? "Shipping zone" : "Piegades zona"}
-            <select value={shippingZoneCode} onChange={(event) => setShippingZoneCode(event.target.value)}>
+            <select
+              value={shippingZoneCode}
+              onChange={(event) => setShippingZoneCode(event.target.value)}
+            >
               {zones.map((candidate) => (
                 <option key={candidate.code} value={candidate.code}>
-                  {candidate.name[locale]} · {formatCurrency(candidate.rateCents)}
+                  {candidate.name[locale]} - {formatCurrency(candidate.rateCents)}
                 </option>
               ))}
             </select>

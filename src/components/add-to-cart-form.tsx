@@ -10,7 +10,8 @@ export function AddToCartForm({ locale, product }: { locale: Locale; product: Pr
   const { addItem } = useCart();
   const [variantId, setVariantId] = useState(product.variants[0]?.id ?? "");
   const [quantity, setQuantity] = useState(1);
-  const selectedVariant = product.variants.find((variant) => variant.id === variantId) ?? product.variants[0];
+  const selectedVariant =
+    product.variants.find((variant) => variant.id === variantId) ?? product.variants[0];
 
   return (
     <div className="purchase-card">
@@ -19,7 +20,7 @@ export function AddToCartForm({ locale, product }: { locale: Locale; product: Pr
         <select value={variantId} onChange={(event) => setVariantId(event.target.value)}>
           {product.variants.map((variant) => (
             <option key={variant.id} value={variant.id}>
-              {variant.name[locale]} · {formatCurrency(variant.priceCents)}
+              {variant.name[locale]} - {formatCurrency(variant.priceCents)}
             </option>
           ))}
         </select>

@@ -9,7 +9,7 @@ export function Footer({ locale }: { locale: Locale }) {
           <p>
             {locale === "en"
               ? "Professional nail materials with clear curing, compatibility, and shipping guidance."
-              : "Profesionali nagu materiali ar skaidru cietināšanas, saderības un piegādes informāciju."}
+              : "Profesionali nagu materiali ar skaidru cietinasanas, saderibas un piegades informaciju."}
           </p>
         </div>
         <div>
@@ -17,7 +17,7 @@ export function Footer({ locale }: { locale: Locale }) {
           <p>
             {locale === "en"
               ? "Returns within 14 days on unopened items. Salon-use guidance included on each product page."
-              : "Atgriesana 14 dienu laika neatvertiem produktiem. Katra produkta lapa satur lietošanas norades salonam."}
+              : "Atgriesana 14 dienu laika neatvertiem produktiem. Katra produkta lapa satur lietosanas norades salonam."}
           </p>
         </div>
       </div>
